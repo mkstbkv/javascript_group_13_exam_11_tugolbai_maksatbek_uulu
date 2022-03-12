@@ -30,6 +30,12 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { categoriesReducer } from './store/categories.reducer';
+import { productsReducer } from './store/products.reducer';
+import { usersReducer } from './store/users.reducer';
+import { CategoriesEffects } from './store/categories.effects';
+import { UsersEffects } from './store/users.effects';
+import { ProductsEffects } from './store/products.effects';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -59,8 +65,12 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({
+      categories: categoriesReducer,
+      products: productsReducer,
+      users: usersReducer
+    }, {metaReducers}),
+    EffectsModule.forRoot([CategoriesEffects, ProductsEffects, UsersEffects]),
     LayoutModule,
     MatToolbarModule,
     MatFormFieldModule,
