@@ -5,10 +5,9 @@ import {
   createProductRequest, createProductSuccess,
   deleteProductFailure,
   deleteProductRequest, deleteProductSuccess,
-  fetchPostsFailure,
-  fetchPostsSuccess, fetchProductFailure,
-  fetchProductRequest,
-  fetchProductsRequest,
+  fetchProductFailure,
+  fetchProductRequest, fetchProductsFailure,
+  fetchProductsRequest, fetchProductsSuccess,
   fetchProductSuccess
 } from './products.actions';
 
@@ -27,12 +26,12 @@ export const productsReducer = createReducer(
   initialState,
 
   on(fetchProductsRequest, state => ({...state, fetchLoading: true})),
-  on(fetchPostsSuccess, (state, {products}) => ({
+  on(fetchProductsSuccess, (state, {products}) => ({
     ...state,
     fetchLoading: false,
     products
   })),
-  on(fetchPostsFailure, (state, {error}) => ({
+  on(fetchProductsFailure, (state, {error}) => ({
     ...state,
     fetchLoading: false,
     fetchError: error
