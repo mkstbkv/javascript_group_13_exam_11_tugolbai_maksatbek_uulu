@@ -8,7 +8,8 @@ export class Product {
     public user: User,
     public title: string,
     public description: string,
-    public image: string,
+    public price: number,
+  public image: string,
   ) {}
 }
 
