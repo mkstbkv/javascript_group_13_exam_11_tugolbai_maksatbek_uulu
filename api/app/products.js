@@ -8,8 +8,6 @@ const Product = require("../models/Product");
 const mongoose = require("mongoose");
 const auth = require("../middleware/auth");
 
-
-
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -55,15 +53,15 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', upload.single('image'), async (req, res, next) => {
+router.post('/', auth, upload.single('image'), async (req, res, next) => {
     try {
-        if (!!req.body.category || !!req.body.user || !req.body.title || !req.body.price || !req.body.description || !req.file.filename) {
+        if (!!req.body.category || !req.body.title || !req.body.price || !req.body.description || !req.file.filename) {
             return res.status(400).send({message: 'All fields are required'});
         }
 
         const productData = {
             category: req.body.category,
-            user: req.body.user,
+            user: req.user._id,
             title: req.body.title,
             price: parseFloat(req.body.price),
             description: req.body.description,
