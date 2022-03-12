@@ -2,4 +2,6 @@
 node_modules
 public/uploads/*
 !public/uploads/.gitkeep
-
+!public/uploads/bmw.jpg
+!public/uploads/computer.jpg
+!public/uploads/philips.jpg

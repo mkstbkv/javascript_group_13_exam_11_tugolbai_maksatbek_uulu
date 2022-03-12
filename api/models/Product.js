@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const ProductSchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
@@ -19,7 +18,14 @@ const ProductSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        validate: {
+            validator: function(value) {
+                if (value) return true;
+                if (value <= 0) return false
+            },
+            message: 'Price should not be last then zero'
+        }
     },
     description: {
         type: String,
