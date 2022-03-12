@@ -83,14 +83,13 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
 router.delete('/:id', auth, async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
-
-        if (req.user && (req.user._id === product.user._id)) {
-            await Product.deleteOne({_id : req.params.id});
-
-            return res.send({message: 'Successfully deleted!'});
-        } else {
+        if (req.user._id.toString() !== product.user._id.toString()) {
             return res.status(403).send({message: 'You have not logged in!'});
         }
+
+        await Product.deleteOne(product);
+
+        return res.send({message: 'Successfully deleted!'});
     } catch (e) {
         next(e);
     }

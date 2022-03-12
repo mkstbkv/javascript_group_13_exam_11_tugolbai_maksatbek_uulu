@@ -38,8 +38,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
     this.userSub = this.user.subscribe(user => {
       if (user) {
-        console.log(user)
         this.userOne = user;
+        this.token = user.token
       } else {
         this.userOne = null;
       }

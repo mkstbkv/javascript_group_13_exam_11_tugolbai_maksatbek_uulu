@@ -11,6 +11,7 @@ import {
   fetchProductsRequest,
   fetchProductsSuccess, fetchProductSuccess
 } from './products.actions';
+import { HelpersService } from '../services/helpers.service';
 
 @Injectable()
 export class ProductsEffects {
@@ -38,8 +39,11 @@ export class ProductsEffects {
     ofType(createProductRequest),
     mergeMap(({productData, token}) => this.productsService.createProduct(productData, token).pipe(
       map(() => createProductSuccess()),
-      tap(() => this.router.navigate(['/'])),
-      catchError(() => of(createProductFailure({error: 'Wrong data'})))
+      tap(() => {
+        this.helpers.openSnackbar('Product created successful');
+        void this.router.navigate(['/']);
+      }),
+      this.helpers.catchServerError(createProductFailure)
     ))
   ));
 
@@ -47,14 +51,18 @@ export class ProductsEffects {
     ofType(deleteProductRequest),
     mergeMap(({id, token}) => this.productsService.deleteProduct(id, token).pipe(
       map(() => deleteProductSuccess()),
-      tap(() => this.router.navigate(['/'])),
-      catchError(() => of(deleteProductFailure({error: 'Wrong data'})))
+      tap(() => {
+        this.helpers.openSnackbar('Product deleted successful');
+        void this.router.navigate(['/']);
+      }),
+      this.helpers.catchServerError(deleteProductFailure)
     ))
   ));
 
   constructor(
     private actions: Actions,
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
+    private helpers: HelpersService,
   ) {}
 }
