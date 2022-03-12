@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require("fs").promises;
 const express = require('express');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
@@ -73,14 +72,11 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
         await product.save();
 
         return res.send(product);
-    } catch (e) {
-        if (e instanceof mongoose.Error.ValidationError) {
-            if (req.file) {
-                await fs.unlink(req.file.path);
-            }
-            return res.status(400).send(e);
+    } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).send(error);
         }
-        next(e);
+        next(error);
     }
 });
 
@@ -89,9 +85,11 @@ router.delete('/:id', auth, async (req, res, next) => {
         const product = await Product.findById(req.params.id);
 
         if (req.user && (req.user._id === product.user._id)) {
-            return res.send({message: 'OK!'});
+            await Product.deleteOne({_id : req.params.id});
+
+            return res.send({message: 'Successfully deleted!'});
         } else {
-            return res.status(403).send({message: 'you have not logged in!'});
+            return res.status(403).send({message: 'You have not logged in!'});
         }
     } catch (e) {
         next(e);
