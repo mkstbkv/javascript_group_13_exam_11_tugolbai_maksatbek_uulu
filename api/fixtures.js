@@ -48,7 +48,7 @@ const run = async () => {
         title: 'Планшет Microsoft Surface Pro 8PV-00017',
         price: 277434,
         description: 'Intel Core i7-1185G7 (3.00-4.80GHz), 16GB DDR4, 256GB SSD, Intel Iris Xe Graphics G7, 13"UHD (2880x1920) 120Hz Touch, WiFi ax, BT 5.1, Win 11 Home, Signature Ke в Бишкеке по лучшим ценам',
-        image: 'cpu.jpg'
+        image: 'computer.jpg'
     }, {
         category: cars,
         user: tugol,

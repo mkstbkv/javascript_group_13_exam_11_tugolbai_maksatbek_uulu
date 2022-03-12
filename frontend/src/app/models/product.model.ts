@@ -9,17 +9,16 @@ export class Product {
     public title: string,
     public description: string,
     public price: number,
-  public image: string,
+    public image: string,
   ) {}
 }
 
 export interface ProductData {
   [key: string]: any;
-  category: Category,
-  user: User,
+  category: string;
   title: string;
   description: string;
   price: number;
-  image: File | null;
+  image: File;
 }
 

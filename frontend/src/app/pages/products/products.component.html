@@ -1,1 +1,52 @@
-<p>products works!</p>
+<div fxLayout="row" >
+  <div class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item (click)="getCategory('', 'All Products')"> All products </a>
+      <a mat-list-item *ngFor="let category of categories | async"
+         (click)="getCategory(category._id, category.title)"
+      > {{ category.title }} </a>
+    </mat-nav-list>
+  </div>
+
+  <div class="content">
+    <h1>{{ title }}</h1>
+    <div class="error" *ngIf="error | async">
+      {{ error | async }}
+    </div>
+
+    <mat-progress-spinner
+      *ngIf="(loading | async) else productsArea"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+
+</div>
+
+<ng-template #productsArea>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div
+      fxFlex.xs="100%"
+      fxFlex.sm="50%"
+      fxFlex.lt-lg="33%"
+      fxFlex="25%"
+      *ngFor="let product of products | async"
+    >
+      <mat-card>
+        <img
+          mat-card-lg-image
+          [src]="product.image | image"
+          [alt]="'Photo of ' + product.title"
+        />
+        <mat-card-title>by {{ product.title }}</mat-card-title>
+        <p>Price: <strong>{{ product.price }}$</strong></p>
+        <mat-card-actions>
+          <a
+            [routerLink]="['/products/', product._id]"
+            mat-raised-button
+            color="warn"
+          >VIEW</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

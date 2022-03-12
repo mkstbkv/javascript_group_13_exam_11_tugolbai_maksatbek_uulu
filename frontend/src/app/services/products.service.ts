@@ -10,8 +10,8 @@ import { environment } from '../../environments/environment';
 export class ProductsService {
   constructor(private http: HttpClient) { }
 
-  getProducts() {
-    return this.http.get<Product[]>(environment.apiUrl + '/products').pipe(
+  getProducts(id: string) {
+    return this.http.get<Product[]>(environment.apiUrl + '/products?category=' + id).pipe(
       map(response => {
         return response.map(productData => {
           return new Product(

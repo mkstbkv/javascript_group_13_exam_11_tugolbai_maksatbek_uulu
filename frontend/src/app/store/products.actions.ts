@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Product, ProductData } from '../models/product.model';
 
-export const fetchProductsRequest = createAction('[Products] Fetch Request');
+export const fetchProductsRequest = createAction(
+  '[Products] Fetch Request',
+  props<{id: string}>()
+);
 export const fetchProductsSuccess = createAction(
   '[Products] Fetch Success',
   props<{products: Product[]}>()

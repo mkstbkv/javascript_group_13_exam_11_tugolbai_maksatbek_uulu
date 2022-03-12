@@ -1,23 +1,19 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav-content>
-    <mat-toolbar
-      color="primary"
-      fxLayout="row"
-      fxLayoutAlign="space-between center"
-    >
-      <div>
-        <a routerLink="/">Flea Market</a>
-      </div>
-      <nav *ngIf="!(user | async) else userMenu">
-        <a mat-button routerLink="/register">REGISTER</a>
-        <a mat-button routerLink="/login">LOGIN</a>
-      </nav>
-    </mat-toolbar>
-    <div class="content">
-      <ng-content></ng-content>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-toolbar
+  color="primary"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div>
+    <a routerLink="/">Flea Market</a>
+  </div>
+  <nav *ngIf="!(user | async) else userMenu">
+    <a mat-button routerLink="/register">REGISTER</a>
+    <a mat-button routerLink="/login">LOGIN</a>
+  </nav>
+</mat-toolbar>
+<div class="content">
+  <ng-content></ng-content>
+</div>
 
 <ng-template #userMenu>
   <nav fxLayout="row" fxLayoutAlign="space-between center">

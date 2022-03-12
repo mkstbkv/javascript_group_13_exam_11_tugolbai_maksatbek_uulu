@@ -40,7 +40,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findById(req.params.id).populate('user', 'displayName phoneNumber');
 
         if (!product) {
             return res.status(404).send({message: 'Not found'});
@@ -54,7 +54,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', auth, upload.single('image'), async (req, res, next) => {
     try {
-        if (!!req.body.category || !req.body.title || !req.body.price || !req.body.description || !req.file.filename) {
+        if (!req.body.category || !req.body.title || !req.body.price || !req.body.description || !req.file) {
             return res.status(400).send({message: 'All fields are required'});
         }
 

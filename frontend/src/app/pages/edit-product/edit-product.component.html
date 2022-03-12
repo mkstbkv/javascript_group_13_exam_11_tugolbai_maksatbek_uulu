@@ -1,1 +1,74 @@
-<p>edit-product works!</p>
+<h1>New post</h1>
+<mat-card>
+  <mat-card-content>
+    <div class="error" *ngIf="error | async">
+      {{ error | async }}
+    </div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input name="title" required matInput ngModel #title="ngModel"
+        />
+        <mat-error *ngIf="title.touched && title.hasError('required')">
+          Title is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea
+          name="description"
+          ngModel
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="3"
+          required
+          #description="ngModel"
+        ></textarea>
+        <mat-error *ngIf="description.touched && description.hasError('required')">
+          Description is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input type="number" name="price" required matInput ngModel #price="ngModel"
+        />
+        <mat-error *ngIf="price.touched && price.hasError('required')">
+          Price is price
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Image</mat-label>
+        <app-file-input name="image" #image="ngModel" required ngModel></app-file-input>
+        <mat-error *ngIf="image.touched && image.hasError('required')">
+          Image is price
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select a category</mat-label>
+        <mat-select name="category" #category="ngModel" required ngModel>
+          <mat-option
+            *ngFor="let category of categories | async"
+            [value]="category._id"
+          >
+            {{ category.title }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.touched && category.hasError('required')">
+          Image is price
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="f.invalid || (loading | async)"
+        >SAVE</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

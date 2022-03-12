@@ -36,6 +36,8 @@ import { usersReducer } from './store/users.reducer';
 import { CategoriesEffects } from './store/categories.effects';
 import { UsersEffects } from './store/users.effects';
 import { ProductsEffects } from './store/products.effects';
+import { ImagePipe } from './pipes/image.pipe';
+import { MatSelectModule } from '@angular/material/select';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -56,34 +58,36 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     LoginComponent,
     RegisterComponent,
     EditProductComponent,
-    FileInputComponent
+    FileInputComponent,
+    ImagePipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    FormsModule,
-    StoreModule.forRoot({
-      categories: categoriesReducer,
-      products: productsReducer,
-      users: usersReducer
-    }, {metaReducers}),
-    EffectsModule.forRoot([CategoriesEffects, ProductsEffects, UsersEffects]),
-    LayoutModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
-    MatMenuModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        HttpClientModule,
+        FormsModule,
+        StoreModule.forRoot({
+            categories: categoriesReducer,
+            products: productsReducer,
+            users: usersReducer
+        }, {metaReducers}),
+        EffectsModule.forRoot([CategoriesEffects, ProductsEffects, UsersEffects]),
+        LayoutModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatMenuModule,
+        MatSelectModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
